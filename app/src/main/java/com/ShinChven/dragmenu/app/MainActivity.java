@@ -51,7 +51,7 @@ public class MainActivity extends ActionBarActivity {
 
         ((GridView) findViewById(R.id.gv_content)).setAdapter(mGridAdapter);
         DragMenu mDragMenu = (DragMenu) findViewById(R.id.dragMenu);
-        mDragMenu.setTransformEnabled(false);
+        mDragMenu.setTransformEnabled(true);
         mDragMenu.setDragListener(new DragMenu.DragListener() {
             @Override
             public void onOpen() {

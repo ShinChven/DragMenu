@@ -7,11 +7,11 @@
         dragMenu:menu_view_id="@+id/menu_view"
         dragMenu:content_view_id="@+id/content_view"
         android:id="@+id/dragMenu"
+        android:background="@color/material_deep_teal_200"
         tools:context=".MainActivity">
 
     <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent"
                     android:id="@+id/menu_view"
-                    android:background="@color/material_deep_teal_200"
                     android:paddingBottom="30dp"
                     android:paddingLeft="30dp"
                     android:paddingTop="50dp"
