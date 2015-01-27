@@ -1,18 +1,26 @@
 package com.ShinChven.dragmenu.app;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.*;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
+import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
+import android.widget.ListView;
+import android.widget.Toast;
 import com.GitHub.ShinChven.DragMenu.DragMenu;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends ActionBarActivity implements SwipeRefreshLayout.OnRefreshListener {
 
+    public static final String DEMO_URL = "http://www.atlassc.net/";
     private BaseAdapter mGridAdapter = new BaseAdapter() {
         @Override
         public int getCount() {
@@ -42,6 +50,8 @@ public class MainActivity extends ActionBarActivity {
     };
     private Toolbar mToolBar;
     private DragMenu mDragMenu;
+    private WebView mWebView;
+    private SwipeRefreshLayout mSwipe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +62,28 @@ public class MainActivity extends ActionBarActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setupDragMenu();
+        mSwipe = ((SwipeRefreshLayout) findViewById(R.id.swipe_layout));
+        mSwipe.setOnRefreshListener(this);
+
+        mWebView = ((WebView) findViewById(R.id.web_view));
+
+        WebViewClient webViewClient = new WebViewClient() {
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+                mSwipe.setRefreshing(false);
+            }
+
+            @Override
+            public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                super.onPageStarted(view, url, favicon);
+                mSwipe.setRefreshing(true);
+            }
+        };
+        mWebView.setWebViewClient(webViewClient);
+
+        mWebView.loadUrl(DEMO_URL);
+
     }
 
     private void setupDragMenu() {
@@ -115,5 +147,10 @@ public class MainActivity extends ActionBarActivity {
 
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onRefresh() {
+        mWebView.loadUrl(DEMO_URL);
     }
 }

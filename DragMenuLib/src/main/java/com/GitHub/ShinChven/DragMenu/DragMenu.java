@@ -39,7 +39,7 @@ public class DragMenu extends FrameLayout {
 
     public void setTransformEnabled(boolean transformEnabled) {
         this.transformEnabled = transformEnabled;
-        if (!transformEnabled) {
+        if (!transformEnabled) { // 设置关闭动画时mMenuView的样式，percent 都为1
             ViewCompat.setScaleX(mMenuView, 0.5f + 0.5f * 1);
             ViewCompat.setScaleY(mMenuView, 0.5f + 0.5f * 1);
             ViewCompat.setAlpha(mMenuView, 1);
@@ -55,6 +55,10 @@ public class DragMenu extends FrameLayout {
         this(context, attrs, 0);
     }
 
+    /**
+     * 获得DragMenu的状态
+     * @return
+     */
     public DragStatus getDragStatus() {
         if (contentLeft == 0) {
             mDragStatus = DragStatus.Close;
@@ -70,7 +74,7 @@ public class DragMenu extends FrameLayout {
     class YScrollDetector extends GestureDetector.SimpleOnGestureListener {
         @Override
         public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
-            return Math.abs(distanceY) <= Math.abs(distanceX);
+            return Math.abs(distanceY) <= Math.abs(distanceX);// 获取横向移动
         }
     }
 
@@ -83,7 +87,7 @@ public class DragMenu extends FrameLayout {
 
         @Override
         public int clampViewPositionHorizontal(View child, int left, int dx) {
-            // keep menu location inside dragRange
+            // 设置横向移动的距离
             if (contentLeft + dx < 0) {
                 return 0;
             } else if (contentLeft + dx > dragRange) {
@@ -95,9 +99,15 @@ public class DragMenu extends FrameLayout {
 
         @Override
         public int getViewHorizontalDragRange(View child) {
-            return width;
+            return width; // 可横向拖动的范围
         }
 
+        /**
+         * 拖动完毕，松手时进行判断，根据菜单打开的位置判断是展开还是关闭菜单
+         * @param releasedChild
+         * @param xvel
+         * @param yvel
+         */
         @Override
         public void onViewReleased(View releasedChild, float xvel, float yvel) {
             super.onViewReleased(releasedChild, xvel, yvel);
@@ -168,7 +178,7 @@ public class DragMenu extends FrameLayout {
     private static final String TAG = DragMenu.class.getSimpleName();
 
     private void doDrag(int contentLeft) {
-
+        // 判断是否启动类QQ的动画
         if (!transformEnabled) {
             return;
         }
@@ -177,16 +187,16 @@ public class DragMenu extends FrameLayout {
         try {
             mDragListener.onDrag(percent);
         } catch (Exception e) {
-            Log.i(TAG, DRAG_LISTENER_IS_NOT_SET);
+            Log.i(TAG, DRAG_LISTENER_IS_NOT_SET); // 如果没有设置回调，也让程序运行
         }
         DragStatus lastStatus = mDragStatus;
-        if (lastStatus != getDragStatus() && mDragStatus == DragStatus.Close) {
+        if (lastStatus != getDragStatus() && mDragStatus == DragStatus.Close) { // 通知菜单关闭
             try {
                 mDragListener.onClose();
             } catch (Exception e) {
                 Log.i(TAG, DRAG_LISTENER_IS_NOT_SET);
             }
-        } else if (lastStatus != getDragStatus() && mDragStatus == DragStatus.Open) {
+        } else if (lastStatus != getDragStatus() && mDragStatus == DragStatus.Open) { // 通知菜单开启
             try {
                 mDragListener.onOpen();
             } catch (Exception e) {
@@ -199,6 +209,10 @@ public class DragMenu extends FrameLayout {
         Open, Drag, Close
     }
 
+    /**
+     * 进行动画计算
+     * @param percent
+     */
     private void animateView(float percent) {
         float f1 = 1 - percent * 0.3f;
         ViewCompat.setScaleX(mContentView, f1);
