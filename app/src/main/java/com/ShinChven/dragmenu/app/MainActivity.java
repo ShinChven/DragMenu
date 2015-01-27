@@ -7,10 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
-import android.widget.GridView;
-import android.widget.ListView;
+import android.widget.*;
 import com.GitHub.ShinChven.DragMenu.DragMenu;
 
 
@@ -54,13 +51,15 @@ public class MainActivity extends ActionBarActivity {
         setSupportActionBar(mToolBar);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setupDragMenu();
+    }
 
-
+    private void setupDragMenu() {
         ((ListView) findViewById(R.id.lv_menu)).setAdapter(new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, strs
         ));
 
-        ((GridView) findViewById(R.id.gv_content)).setAdapter(mGridAdapter);
+
         this.mDragMenu = (DragMenu) findViewById(R.id.dragMenu);
         this.mDragMenu.setTransformEnabled(true);
         this.mDragMenu.setDragListener(new DragMenu.DragListener() {
@@ -98,6 +97,13 @@ public class MainActivity extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            if (mDragMenu.isTransformEnabled()) {
+                mDragMenu.setTransformEnabled(false);
+                Toast.makeText(this, "transforming disabled", Toast.LENGTH_SHORT).show();
+            } else {
+                mDragMenu.setTransformEnabled(true);
+                Toast.makeText(this, "transforming", Toast.LENGTH_SHORT).show();
+            }
             return true;
         } else if (id == android.R.id.home) {
             if (mDragMenu.getDragStatus() == DragMenu.DragStatus.Open) {

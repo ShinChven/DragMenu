@@ -32,11 +32,13 @@
                 android:background="@color/material_deep_teal_500"
                 >
         </android.support.v7.widget.Toolbar>
-        <GridView android:layout_width="match_parent" android:layout_height="match_parent"
-                  android:id="@+id/gv_content"
-                  android:layout_below="@+id/toolbar"
-                ></GridView>
-
+        <android.support.v4.widget.SwipeRefreshLayout android:layout_width="match_parent"
+                                                      android:layout_height="match_parent"
+                                                      android:layout_below="@id/toolbar">
+            <WebView android:layout_width="match_parent" android:layout_height="match_parent"
+                     android:id="@+id/web_view"
+                    ></WebView>
+        </android.support.v4.widget.SwipeRefreshLayout>
     </com.GitHub.ShinChven.DragMenu.DragContentLayout>
 
 </com.GitHub.ShinChven.DragMenu.DragMenu>

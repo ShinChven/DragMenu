@@ -39,6 +39,12 @@ public class DragMenu extends FrameLayout {
 
     public void setTransformEnabled(boolean transformEnabled) {
         this.transformEnabled = transformEnabled;
+        if (!transformEnabled) {
+            ViewCompat.setScaleX(mMenuView, 0.5f + 0.5f * 1);
+            ViewCompat.setScaleY(mMenuView, 0.5f + 0.5f * 1);
+            ViewCompat.setAlpha(mMenuView, 1);
+            ViewCompat.setTranslationX(mMenuView, -mMenuView.getWidth() / 2.3f + mMenuView.getWidth() / 2.3f * 1);
+        }
     }
 
     public DragMenu(Context context) {
