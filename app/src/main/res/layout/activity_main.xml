@@ -4,12 +4,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         xmlns:dragMenu="http://schemas.android.com/apk/res-auto"
-        dragMenu:MenuViewId="@+id/dragMenu"
-        dragMenu:ContentViewId="@+id/dragContent"
+        dragMenu:MenuViewId="@+id/menu_view"
+        dragMenu:ContentViewId="@+id/content_view"
+        android:id="@+id/dragMenu"
         tools:context=".MainActivity">
 
     <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent"
-                    android:id="@+id/dragMenu"
+                    android:id="@+id/menu_view"
                     android:background="@color/material_deep_teal_200"
                     android:paddingBottom="30dp"
                     android:paddingLeft="30dp"
@@ -22,7 +23,7 @@
 
     <com.ShinChven.dragmenu.app.widget.DragContentLayout android:layout_width="match_parent"
                                                          android:layout_height="match_parent"
-                                                         android:id="@+id/dragContent"
+                                                         android:id="@+id/content_view"
                                                          android:background="@color/material_blue_grey_800"
             >
         <GridView android:layout_width="match_parent" android:layout_height="match_parent"

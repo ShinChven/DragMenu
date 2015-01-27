@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ListView;
+import com.ShinChven.dragmenu.app.widget.DragMenu;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -49,6 +50,22 @@ public class MainActivity extends ActionBarActivity {
         ));
 
         ((GridView) findViewById(R.id.gv_content)).setAdapter(mGridAdapter);
+        ((DragMenu) findViewById(R.id.dragMenu)).setDragListener(new DragMenu.DragListener() {
+            @Override
+            public void onOpen() {
+
+            }
+
+            @Override
+            public void onClose() {
+
+            }
+
+            @Override
+            public void onDrag(float percent) {
+
+            }
+        });
     }
 
 //

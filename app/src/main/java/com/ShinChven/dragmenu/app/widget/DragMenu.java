@@ -2,12 +2,11 @@ package com.ShinChven.dragmenu.app.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.support.v4.view.GestureDetectorCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.ViewDragHelper;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
@@ -172,6 +171,7 @@ public class DragMenu extends FrameLayout {
     }
 
     private void animateView(float percent) {
+        Log.i("DragPercent", String.valueOf(percent));
         float f1 = 1 - percent * 0.3f;
         ViewCompat.setScaleX(mContentView, f1);
         ViewCompat.setScaleY(mContentView, f1);
@@ -179,7 +179,6 @@ public class DragMenu extends FrameLayout {
         ViewCompat.setScaleX(mMenuView, 0.5f + 0.5f * percent);
         ViewCompat.setScaleY(mMenuView, 0.5f + 0.5f * percent);
         ViewCompat.setAlpha(mMenuView, percent);
-
 
     }
 
