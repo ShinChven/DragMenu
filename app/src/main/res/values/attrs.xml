@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="DragMenu">
+        <attr name="MenuViewId" format="reference"></attr>
+        <attr name="ContentViewId" format="reference"></attr>
+    </declare-styleable>
+</resources>

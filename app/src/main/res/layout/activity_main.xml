@@ -1,0 +1,34 @@
+<com.ShinChven.dragmenu.app.widget.DragMenu
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:dragMenu="http://schemas.android.com/apk/res-auto"
+        dragMenu:MenuViewId="@+id/dragMenu"
+        dragMenu:ContentViewId="@+id/dragContent"
+        tools:context=".MainActivity">
+
+    <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent"
+                    android:id="@+id/dragMenu"
+                    android:background="@color/material_deep_teal_200"
+                    android:paddingBottom="30dp"
+                    android:paddingLeft="30dp"
+                    android:paddingTop="50dp"
+            >
+        <ListView android:layout_width="160dp" android:layout_height="match_parent"
+                  android:id="@+id/lv_menu"
+                ></ListView>
+    </RelativeLayout>
+
+    <com.ShinChven.dragmenu.app.widget.DragContentLayout android:layout_width="match_parent"
+                                                         android:layout_height="match_parent"
+                                                         android:id="@+id/dragContent"
+                                                         android:background="@color/material_blue_grey_800"
+            >
+        <GridView android:layout_width="match_parent" android:layout_height="match_parent"
+                  android:id="@+id/gv_content"
+                ></GridView>
+
+    </com.ShinChven.dragmenu.app.widget.DragContentLayout>
+
+</com.ShinChven.dragmenu.app.widget.DragMenu>
