@@ -11,14 +11,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
-import android.widget.ListView;
-import android.widget.Toast;
+import android.widget.*;
 import com.GitHub.ShinChven.DragMenu.DragMenu;
 
 
-public class MainActivity extends ActionBarActivity implements SwipeRefreshLayout.OnRefreshListener {
+public class MainActivity extends ActionBarActivity implements SwipeRefreshLayout.OnRefreshListener, AdapterView.OnItemClickListener {
 
     public static final String DEMO_URL = "http://www.atlassc.net/";
     private BaseAdapter mGridAdapter = new BaseAdapter() {
@@ -52,6 +49,7 @@ public class MainActivity extends ActionBarActivity implements SwipeRefreshLayou
     private DragMenu mDragMenu;
     private WebView mWebView;
     private SwipeRefreshLayout mSwipe;
+    private ListView mMenuListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,11 +60,14 @@ public class MainActivity extends ActionBarActivity implements SwipeRefreshLayou
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setupDragMenu();
+        setupContent();
+
+    }
+
+    private void setupContent() {
         mSwipe = ((SwipeRefreshLayout) findViewById(R.id.swipe_layout));
         mSwipe.setOnRefreshListener(this);
-
         mWebView = ((WebView) findViewById(R.id.web_view));
-
         WebViewClient webViewClient = new WebViewClient() {
             @Override
             public void onPageFinished(WebView view, String url) {
@@ -81,15 +82,16 @@ public class MainActivity extends ActionBarActivity implements SwipeRefreshLayou
             }
         };
         mWebView.setWebViewClient(webViewClient);
-
         mWebView.loadUrl(DEMO_URL);
-
     }
 
     private void setupDragMenu() {
-        ((ListView) findViewById(R.id.lv_menu)).setAdapter(new ArrayAdapter<String>(this,
+        mMenuListView = (ListView) findViewById(R.id.lv_menu);
+        mMenuListView.setAdapter(new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, strs
         ));
+
+        mMenuListView.setOnItemClickListener(this);
 
 
         this.mDragMenu = (DragMenu) findViewById(R.id.dragMenu);
@@ -152,5 +154,10 @@ public class MainActivity extends ActionBarActivity implements SwipeRefreshLayou
     @Override
     public void onRefresh() {
         mWebView.loadUrl(DEMO_URL);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        mDragMenu.closeMenu();
     }
 }
