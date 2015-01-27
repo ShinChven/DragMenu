@@ -1,4 +1,4 @@
-package com.ShinChven.dragmenu.app.widget;
+package com.GitHub.ShinChven.DragMenu;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -12,13 +12,14 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
-import com.ShinChven.dragmenu.app.R;
+
 
 /**
  * Created by ShinChven on 2015/1/26.
  */
 public class DragMenu extends FrameLayout {
 
+    public static final String DRAG_LISTENER_IS_NOT_SET = "drag listener is not set.";
     private GestureDetectorCompat mGestureDetector;
     private ViewDragHelper mDragHelper;
     private DragListener mDragListener;
@@ -30,7 +31,15 @@ public class DragMenu extends FrameLayout {
     private int height;
     private int dragRange;
     private DragStatus mDragStatus;
-    private DragStatus dragStatus;
+    private boolean transformEnabled;
+
+    public boolean isTransformEnabled() {
+        return transformEnabled;
+    }
+
+    public void setTransformEnabled(boolean transformEnabled) {
+        this.transformEnabled = transformEnabled;
+    }
 
     public DragMenu(Context context) {
         this(context, null);
@@ -150,19 +159,33 @@ public class DragMenu extends FrameLayout {
         }
     }
 
+    private static final String TAG = DragMenu.class.getSimpleName();
 
     private void doDrag(int contentLeft) {
-        if (mDragListener == null) {
+
+        if (!transformEnabled) {
             return;
         }
         float percent = contentLeft / ((float) dragRange);
         animateView(percent);
-        mDragListener.onDrag(percent);
+        try {
+            mDragListener.onDrag(percent);
+        } catch (Exception e) {
+            Log.i(TAG, DRAG_LISTENER_IS_NOT_SET);
+        }
         DragStatus lastStatus = mDragStatus;
         if (lastStatus != getDragStatus() && mDragStatus == DragStatus.Close) {
-            mDragListener.onClose();
+            try {
+                mDragListener.onClose();
+            } catch (Exception e) {
+                Log.i(TAG, DRAG_LISTENER_IS_NOT_SET);
+            }
         } else if (lastStatus != getDragStatus() && mDragStatus == DragStatus.Open) {
-            mDragListener.onOpen();
+            try {
+                mDragListener.onOpen();
+            } catch (Exception e) {
+                Log.i(TAG, DRAG_LISTENER_IS_NOT_SET);
+            }
         }
     }
 
@@ -171,7 +194,6 @@ public class DragMenu extends FrameLayout {
     }
 
     private void animateView(float percent) {
-        Log.i("DragPercent", String.valueOf(percent));
         float f1 = 1 - percent * 0.3f;
         ViewCompat.setScaleX(mContentView, f1);
         ViewCompat.setScaleY(mContentView, f1);
@@ -179,7 +201,6 @@ public class DragMenu extends FrameLayout {
         ViewCompat.setScaleX(mMenuView, 0.5f + 0.5f * percent);
         ViewCompat.setScaleY(mMenuView, 0.5f + 0.5f * percent);
         ViewCompat.setAlpha(mMenuView, percent);
-
     }
 
     public DragMenu(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -192,8 +213,8 @@ public class DragMenu extends FrameLayout {
 
     private void getAttrs(Context context, AttributeSet attrs) {
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.DragMenu);
-        mMenuViewId = ta.getResourceId(R.styleable.DragMenu_MenuViewId, -1);
-        mContentViewId = ta.getResourceId(R.styleable.DragMenu_ContentViewId, -1);
+        mMenuViewId = ta.getResourceId(R.styleable.DragMenu_menu_view_id, -1);
+        mContentViewId = ta.getResourceId(R.styleable.DragMenu_content_view_id, -1);
         ta.recycle();
     }
 

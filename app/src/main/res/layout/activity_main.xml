@@ -1,11 +1,11 @@
-<com.ShinChven.dragmenu.app.widget.DragMenu
+<com.GitHub.ShinChven.DragMenu.DragMenu
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         xmlns:dragMenu="http://schemas.android.com/apk/res-auto"
-        dragMenu:MenuViewId="@+id/menu_view"
-        dragMenu:ContentViewId="@+id/content_view"
+        dragMenu:menu_view_id="@+id/menu_view"
+        dragMenu:content_view_id="@+id/content_view"
         android:id="@+id/dragMenu"
         tools:context=".MainActivity">
 
@@ -21,7 +21,7 @@
                 ></ListView>
     </RelativeLayout>
 
-    <com.ShinChven.dragmenu.app.widget.DragContentLayout android:layout_width="match_parent"
+    <com.GitHub.ShinChven.DragMenu.DragContentLayout android:layout_width="match_parent"
                                                          android:layout_height="match_parent"
                                                          android:id="@+id/content_view"
                                                          android:background="@color/material_blue_grey_800"
@@ -30,6 +30,6 @@
                   android:id="@+id/gv_content"
                 ></GridView>
 
-    </com.ShinChven.dragmenu.app.widget.DragContentLayout>
+    </com.GitHub.ShinChven.DragMenu.DragContentLayout>
 
-</com.ShinChven.dragmenu.app.widget.DragMenu>
+</com.GitHub.ShinChven.DragMenu.DragMenu>

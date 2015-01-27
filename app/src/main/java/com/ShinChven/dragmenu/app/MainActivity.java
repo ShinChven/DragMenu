@@ -8,7 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ListView;
-import com.ShinChven.dragmenu.app.widget.DragMenu;
+import com.GitHub.ShinChven.DragMenu.DragMenu;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -50,7 +50,9 @@ public class MainActivity extends ActionBarActivity {
         ));
 
         ((GridView) findViewById(R.id.gv_content)).setAdapter(mGridAdapter);
-        ((DragMenu) findViewById(R.id.dragMenu)).setDragListener(new DragMenu.DragListener() {
+        DragMenu mDragMenu = (DragMenu) findViewById(R.id.dragMenu);
+        mDragMenu.setTransformEnabled(false);
+        mDragMenu.setDragListener(new DragMenu.DragListener() {
             @Override
             public void onOpen() {
 

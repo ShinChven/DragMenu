@@ -1,4 +1,4 @@
-package com.ShinChven.dragmenu.app.widget;
+package com.GitHub.ShinChven.DragMenu;
 
 import android.content.Context;
 import android.util.AttributeSet;
