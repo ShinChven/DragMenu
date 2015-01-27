@@ -22,12 +22,19 @@
     </RelativeLayout>
 
     <com.GitHub.ShinChven.DragMenu.DragContentLayout android:layout_width="match_parent"
-                                                         android:layout_height="match_parent"
-                                                         android:id="@+id/content_view"
-                                                         android:background="@color/material_blue_grey_800"
+                                                     android:layout_height="match_parent"
+                                                     android:id="@+id/content_view"
+                                                     android:background="@color/material_blue_grey_800"
             >
+        <android.support.v7.widget.Toolbar
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:id="@+id/toolbar"
+                android:background="@color/material_deep_teal_500"
+                >
+        </android.support.v7.widget.Toolbar>
         <GridView android:layout_width="match_parent" android:layout_height="match_parent"
                   android:id="@+id/gv_content"
+                  android:layout_below="@+id/toolbar"
                 ></GridView>
 
     </com.GitHub.ShinChven.DragMenu.DragContentLayout>

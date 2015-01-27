@@ -2,6 +2,9 @@ package com.ShinChven.dragmenu.app;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -40,19 +43,27 @@ public class MainActivity extends ActionBarActivity {
     private String[] strs = new String[]{
             "alpha", "beta", "jason", "jon", "atlas", "cloud", "default", "menu"
     };
+    private Toolbar mToolBar;
+    private DragMenu mDragMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mToolBar = ((Toolbar) findViewById(R.id.toolbar));
+        setSupportActionBar(mToolBar);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
         ((ListView) findViewById(R.id.lv_menu)).setAdapter(new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, strs
         ));
 
         ((GridView) findViewById(R.id.gv_content)).setAdapter(mGridAdapter);
-        DragMenu mDragMenu = (DragMenu) findViewById(R.id.dragMenu);
-        mDragMenu.setTransformEnabled(true);
-        mDragMenu.setDragListener(new DragMenu.DragListener() {
+        this.mDragMenu = (DragMenu) findViewById(R.id.dragMenu);
+        this.mDragMenu.setTransformEnabled(true);
+        this.mDragMenu.setDragListener(new DragMenu.DragListener() {
             @Override
             public void onOpen() {
 
@@ -70,26 +81,33 @@ public class MainActivity extends ActionBarActivity {
         });
     }
 
-//
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.menu_main, menu);
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        // Handle action bar item clicks here. The action bar will
-//        // automatically handle clicks on the Home/Up button, so long
-//        // as you specify a parent activity in AndroidManifest.xml.
-//        int id = item.getItemId();
-//
-//        //noinspection SimplifiableIfStatement
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
-//
-//        return super.onOptionsItemSelected(item);
-//    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        } else if (id == android.R.id.home) {
+            if (mDragMenu.getDragStatus() == DragMenu.DragStatus.Open) {
+                mDragMenu.closeMenu();
+            } else if (mDragMenu.getDragStatus() == DragMenu.DragStatus.Close) {
+                mDragMenu.openMenu();
+            }
+        }
+
+
+        return super.onOptionsItemSelected(item);
+    }
 }

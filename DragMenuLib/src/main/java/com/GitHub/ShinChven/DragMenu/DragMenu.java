@@ -189,7 +189,7 @@ public class DragMenu extends FrameLayout {
         }
     }
 
-    enum DragStatus {
+    public enum DragStatus {
         Open, Drag, Close
     }
 
