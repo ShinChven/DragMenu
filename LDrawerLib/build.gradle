@@ -1,23 +1,11 @@
-buildscript {
-    repositories {
-        jcenter()
-    }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:0.14.2'
-    }
-}
 apply plugin: 'com.android.library'
-
-repositories {
-    jcenter()
-}
 
 android {
     compileSdkVersion 21
     buildToolsVersion "21.1.2"
 
     defaultConfig {
-        applicationId "com.GitHub.ShinChven.DragMenu"
+        applicationId "com.ikimuhendis.ldrawer"
         minSdkVersion 10
         targetSdkVersion 21
         versionCode 1
@@ -25,7 +13,7 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            runProguard false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -33,5 +21,6 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:support-v4:21.0.3'
+    compile 'com.android.support:support-v4:21.0.+'
+    compile 'com.android.support:appcompat-v7:21.0.+'
 }

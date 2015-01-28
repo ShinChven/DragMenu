@@ -18,7 +18,7 @@ android {
 
     defaultConfig {
         applicationId "com.ShinChven.dragmenu.app"
-        minSdkVersion 9
+        minSdkVersion 10
         targetSdkVersion 21
         versionCode 1
         versionName "1.0"
@@ -34,6 +34,7 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile project(':DragMenuLib')
+    compile project(':LDrawerLib')
     compile 'com.android.support:support-v4:21.0.3'
     compile 'com.android.support:appcompat-v7:21.0.3'
 }
