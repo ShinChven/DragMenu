@@ -1,6 +1,7 @@
 package com.ShinChven.dragmenu.app;
 
 import android.annotation.SuppressLint;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarActivity;
@@ -10,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.*;
 import com.GitHub.ShinChven.DragMenu.DragMenu;
 import com.ikimuhendis.ldrawer.DrawerArrowDrawable;
@@ -107,24 +109,24 @@ public class MainActivity extends ActionBarActivity implements SwipeRefreshLayou
     private void setupContent() {
         mSwipe = ((SwipeRefreshLayout) findViewById(R.id.swipe_layout));
         mSwipe.setOnRefreshListener(this);
-//        mWebView = ((WebView) findViewById(R.id.web_view));
-//        WebViewClient webViewClient = new WebViewClient() {
-//            @Override
-//            public void onPageFinished(WebView view, String url) {
-//                super.onPageFinished(view, url);
-//                mSwipe.setRefreshing(false);
-//            }
-//
-//            @Override
-//            public void onPageStarted(WebView view, String url, Bitmap favicon) {
-//                super.onPageStarted(view, url, favicon);
-//                mSwipe.setRefreshing(true);
-//            }
-//        };
-//        mWebView.setWebViewClient(webViewClient);
-//        mWebView.loadUrl(DEMO_URL);
-        mList = ((ListView) findViewById(R.id.main_list));
-        mList.setAdapter(mAdaper);
+        mWebView = ((WebView) findViewById(R.id.web_view));
+        WebViewClient webViewClient = new WebViewClient() {
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+                mSwipe.setRefreshing(false);
+            }
+
+            @Override
+            public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                super.onPageStarted(view, url, favicon);
+                mSwipe.setRefreshing(true);
+            }
+        };
+        mWebView.setWebViewClient(webViewClient);
+        mWebView.loadUrl(DEMO_URL);
+//        mList = ((ListView) findViewById(R.id.main_list));
+//        mList.setAdapter(mAdaper);
     }
 
     private void setupDragMenu() {
@@ -195,7 +197,11 @@ public class MainActivity extends ActionBarActivity implements SwipeRefreshLayou
 
     @Override
     public void onRefresh() {
-        mWebView.loadUrl(DEMO_URL);
+        try {
+            mWebView.loadUrl(DEMO_URL);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

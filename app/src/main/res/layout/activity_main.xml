@@ -38,12 +38,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_below="@id/toolbar">
-            <!--<WebView android:layout_width="match_parent" android:layout_height="match_parent"-->
-                     <!--android:id="@+id/web_view"-->
-                    <!--></WebView>-->
-            <ListView android:layout_width="match_parent" android:layout_height="match_parent"
-                      android:id="@+id/main_list"
-                    ></ListView>
+            <WebView android:layout_width="match_parent" android:layout_height="match_parent"
+                     android:id="@+id/web_view"
+                    ></WebView>
+            <!--<ListView android:layout_width="match_parent" android:layout_height="match_parent"-->
+                      <!--android:id="@+id/main_list"-->
+                    <!--></ListView>-->
         </android.support.v4.widget.SwipeRefreshLayout>
     </com.GitHub.ShinChven.DragMenu.DragContentLayout>
 

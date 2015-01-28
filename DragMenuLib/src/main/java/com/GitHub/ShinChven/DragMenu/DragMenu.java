@@ -178,11 +178,16 @@ public class DragMenu extends FrameLayout {
     private static final String TAG = DragMenu.class.getSimpleName();
 
     private void doDrag(int contentLeft) {
+        float percent = contentLeft / ((float) dragRange);
         // 判断是否启动类QQ的动画
         if (!transformEnabled) {
+            try {
+                mDragListener.onDrag(percent);
+            } catch (Exception e) {
+                Log.i(TAG, DRAG_LISTENER_IS_NOT_SET); // 如果没有设置回调，也让程序运行
+            }
             return;
         }
-        float percent = contentLeft / ((float) dragRange);
         animateView(percent);
         try {
             mDragListener.onDrag(percent);
