@@ -1,6 +1,6 @@
 package com.ShinChven.dragmenu.app;
 
-import android.graphics.Bitmap;
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarActivity;
@@ -10,9 +10,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.*;
 import com.GitHub.ShinChven.DragMenu.DragMenu;
+import com.ikimuhendis.ldrawer.DrawerArrowDrawable;
 
 
 public class MainActivity extends ActionBarActivity implements SwipeRefreshLayout.OnRefreshListener, AdapterView.OnItemClickListener {
@@ -51,7 +51,7 @@ public class MainActivity extends ActionBarActivity implements SwipeRefreshLayou
     private SwipeRefreshLayout mSwipe;
     private ListView mMenuListView;
     private ListView mList;
-    private BaseAdapter mAdaper=new BaseAdapter() {
+    private BaseAdapter mAdaper = new BaseAdapter() {
         @Override
         public int getCount() {
             return 25;
@@ -69,24 +69,39 @@ public class MainActivity extends ActionBarActivity implements SwipeRefreshLayou
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            if (convertView==null) {
-                convertView=getLayoutInflater().inflate(R.layout.item_list,null);
+            if (convertView == null) {
+                convertView = getLayoutInflater().inflate(R.layout.item_list, null);
             }
             return convertView;
         }
     };
+    private DrawerArrowDrawable mHomeArrow;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setupActionBar();
+        setupDragMenu();
+        setupContent();
+
+    }
+
+    @SuppressLint("ResourceAsColor")
+    private void setupActionBar() {
         mToolBar = ((Toolbar) findViewById(R.id.toolbar));
         setSupportActionBar(mToolBar);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        setupDragMenu();
-        setupContent();
-
+        mHomeArrow = new DrawerArrowDrawable(this) {
+            @Override
+            public boolean isLayoutRtl() {
+                return false;
+            }
+        };
+        mHomeArrow.setColor(R.color.material_blue_grey_950);
+        mToolBar.setNavigationIcon(mHomeArrow);
     }
 
     private void setupContent() {
@@ -136,7 +151,7 @@ public class MainActivity extends ActionBarActivity implements SwipeRefreshLayou
 
             @Override
             public void onDrag(float percent) {
-
+                mHomeArrow.setProgress(percent);
             }
         });
     }
