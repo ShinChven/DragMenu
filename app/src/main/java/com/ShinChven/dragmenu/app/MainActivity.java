@@ -50,6 +50,31 @@ public class MainActivity extends ActionBarActivity implements SwipeRefreshLayou
     private WebView mWebView;
     private SwipeRefreshLayout mSwipe;
     private ListView mMenuListView;
+    private ListView mList;
+    private BaseAdapter mAdaper=new BaseAdapter() {
+        @Override
+        public int getCount() {
+            return 25;
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return position;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            if (convertView==null) {
+                convertView=getLayoutInflater().inflate(R.layout.item_list,null);
+            }
+            return convertView;
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,22 +92,24 @@ public class MainActivity extends ActionBarActivity implements SwipeRefreshLayou
     private void setupContent() {
         mSwipe = ((SwipeRefreshLayout) findViewById(R.id.swipe_layout));
         mSwipe.setOnRefreshListener(this);
-        mWebView = ((WebView) findViewById(R.id.web_view));
-        WebViewClient webViewClient = new WebViewClient() {
-            @Override
-            public void onPageFinished(WebView view, String url) {
-                super.onPageFinished(view, url);
-                mSwipe.setRefreshing(false);
-            }
-
-            @Override
-            public void onPageStarted(WebView view, String url, Bitmap favicon) {
-                super.onPageStarted(view, url, favicon);
-                mSwipe.setRefreshing(true);
-            }
-        };
-        mWebView.setWebViewClient(webViewClient);
-        mWebView.loadUrl(DEMO_URL);
+//        mWebView = ((WebView) findViewById(R.id.web_view));
+//        WebViewClient webViewClient = new WebViewClient() {
+//            @Override
+//            public void onPageFinished(WebView view, String url) {
+//                super.onPageFinished(view, url);
+//                mSwipe.setRefreshing(false);
+//            }
+//
+//            @Override
+//            public void onPageStarted(WebView view, String url, Bitmap favicon) {
+//                super.onPageStarted(view, url, favicon);
+//                mSwipe.setRefreshing(true);
+//            }
+//        };
+//        mWebView.setWebViewClient(webViewClient);
+//        mWebView.loadUrl(DEMO_URL);
+        mList = ((ListView) findViewById(R.id.main_list));
+        mList.setAdapter(mAdaper);
     }
 
     private void setupDragMenu() {
